@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -192,7 +193,7 @@ func main() {
 	var err error
 
 	// konek database
-	db, err = sql.Open("mysql", "root:qwerty@tcp(localhost:3306)/daily_expenses")
+	db, err = sql.Open("mysql", "root:EANHHUFWsX2ocayI4WXW@tcp(containers-us-west-143.railway.app:6475)/railway")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -218,4 +219,11 @@ func main() {
 	// start
 	e.Start(":8080")
 
+}
+func getPort() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Port default jika tidak ada environment variable
+	}
+	return port
 }
