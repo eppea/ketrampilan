@@ -192,7 +192,7 @@ func main() {
 	var err error
 
 	// Connect to MySQL database
-	db, err = sql.Open("mysql", "root:qwerty@tcp(localhost:3306)/daily_expenses")
+	db, err = sql.Open("mysql", "root:EANHHUFWsX2ocayI4WXW@tcp(containers-us-west-143.railway.app:6475)/railway")
 	if err != nil {
 		log.Fatal(err)
 	}
