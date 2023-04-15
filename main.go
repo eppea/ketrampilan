@@ -217,7 +217,7 @@ func main() {
 	e.DELETE("/transactions/:id", deleteTransaction)
 
 	// start
-	e.Start(":8080")
+	e.Start(":" + getPort())
 
 }
 func getPort() string {
