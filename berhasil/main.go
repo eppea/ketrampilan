@@ -20,6 +20,14 @@ type Transaction struct {
 
 var db *sql.DB
 
+func getPort() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Port default jika tidak ada environment variable
+	}
+	return port
+}
+
 // semua transaksi
 func getAllTransactions(c echo.Context) error {
 	rows, err := db.Query("SELECT id, description, amount FROM transactions")
@@ -219,11 +227,4 @@ func main() {
 	// start
 	e.Start(":8080")
 
-}
-func getPort() string {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080" // Port default jika tidak ada environment variable
-	}
-	return port
 }
