@@ -10,7 +10,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// Transaction struct to represent a transaction
+// struntnya
 type Transaction struct {
 	ID          int     `json:"id"`
 	Description string  `json:"description"`
@@ -19,7 +19,7 @@ type Transaction struct {
 
 var db *sql.DB
 
-// Handler function to get all transactions
+// semua transaksi
 func getAllTransactions(c echo.Context) error {
 	rows, err := db.Query("SELECT id, description, amount FROM transactions")
 	if err != nil {
@@ -46,7 +46,7 @@ func getAllTransactions(c echo.Context) error {
 	return c.JSON(http.StatusOK, transactions)
 }
 
-// Handler function to get a transaction by ID
+// transaksi per ID
 func getTransaction(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -73,7 +73,7 @@ func getTransaction(c echo.Context) error {
 	return c.JSON(http.StatusOK, transaction)
 }
 
-// Handler function to create a new transaction
+// transaksi baru
 func createTransaction(c echo.Context) error {
 	var transaction Transaction
 	err := c.Bind(&transaction)
@@ -105,7 +105,7 @@ func createTransaction(c echo.Context) error {
 	return c.JSON(http.StatusCreated, transaction)
 }
 
-// Handler function to update a transaction by ID
+// transaksi update
 func updateTransaction(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -151,7 +151,7 @@ func updateTransaction(c echo.Context) error {
 	})
 }
 
-// Handler function to delete a transaction by ID
+// delet
 func deleteTransaction(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -191,7 +191,7 @@ func deleteTransaction(c echo.Context) error {
 func main() {
 	var err error
 
-	// Connect to MySQL database
+	// konek database
 	db, err = sql.Open("mysql", "root:qwerty@tcp(localhost:3306)/daily_expenses")
 	if err != nil {
 		log.Fatal(err)
@@ -199,7 +199,7 @@ func main() {
 
 	defer db.Close()
 
-	// Check if the database is connected
+	// jika konek
 	err = db.Ping()
 	if err != nil {
 		log.Fatal(err)
@@ -208,14 +208,14 @@ func main() {
 
 	e := echo.New()
 
-	// Define routes
+	// routes
 	e.GET("/transactions", getAllTransactions)
 	e.GET("/transactions/:id", getTransaction)
 	e.POST("/transactions", createTransaction)
 	e.PUT("/transactions/:id", updateTransaction)
 	e.DELETE("/transactions/:id", deleteTransaction)
 
-	// Start the server
+	// start
 	e.Start(":8080")
 
 }
